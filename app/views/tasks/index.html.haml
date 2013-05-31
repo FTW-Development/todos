@@ -1,22 +1,18 @@
-%h1 Listing tasks
+#tasks-page
+  %h1 Listing tasks
 
-#task-creation-form
-  = form_for @task, :url => { :action => "create" } do |f|
-    = f.text_field :content
-    = f.submit "Save"
+  #task-creation-form
+    = form_for @task, :url => { :action => "create" }, :remote => true do |f|
+      = f.text_field :content, :id => "content-field"
+      = f.submit "Save"
 
-%table
-  %tr
-    %th Content
-    %th Completed
-    %th User
-    %th 
-    %th 
-    %th 
-  - @tasks.each do |task|
+  %table#tasks-table
     %tr
-      %td= task.content
-      %td= task.user_id
-      %td= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Task', new_task_path
+      %th Content
+      %th User
+      %th 
+    - @tasks.each do |task|
+      %tr
+        %td#content= task.content
+        %td= task.user_id
+        %td= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }

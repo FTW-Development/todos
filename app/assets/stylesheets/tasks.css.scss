@@ -1,3 +1,25 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#tasks-page {
+  #task-creation-form {
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
+
+  #content-field {
+    width: 500px;
+    height: 50px;
+  }
+  #tasks-table {
+    #content {
+      width: 500px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+}
+
+

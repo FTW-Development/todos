@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.order("created_at DESC")
 
     @task = Task.new
 
@@ -10,22 +10,6 @@ class TasksController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @tasks }
     end
-  end
-
-  # GET /tasks/1
-  # GET /tasks/1.json
-  def show
-    @task = Task.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @task }
-    end
-  end
-
-  # GET /tasks/1/edit
-  def edit
-    @task = Task.find(params[:id])
   end
 
   # POST /tasks

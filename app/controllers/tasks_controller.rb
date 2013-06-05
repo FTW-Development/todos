@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order("created_at DESC")
+    @tasks = Task.order("position")
 
     @task = Task.new
 
@@ -52,5 +52,11 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
     end
+  end
+  def sort
+    params[:task].each_with_index do |id, index|
+      Task.update_all({position: index+1}, {id: id})
+    end
+    render :nothing => true
   end
 end

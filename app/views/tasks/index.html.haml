@@ -6,16 +6,12 @@
       = f.text_field :content, :id => "content-field"
       = f.submit "Save"
 
-  %table#tasks-table
-    %tr.first
-      %th Content
-      %th User
-      -#%th Date Created
-      %th
-      %ul#tasks
-        - @tasks.each do |task|
-          %li{:id => "task#{task.id}"}= link_to task.content, task
-        -#%tr= task.user_id
-        -#%tr= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
-        -#%td= task.created_at
-      -#= sortable_element("tasks", :url => "TODOS", :tag=>"tr")
+  %ul#tasks
+    - @tasks.each do |task|
+      %li{:id => "task#{task.id}"}
+        = check_box_tag(:complete, "completed")
+        %span.content= task.content
+        = @task.user_id
+        = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
+      -#%td= task.created_at
+    -#= sortable_element("tasks", :url => "TODOS", :tag=>"tr")

@@ -11,7 +11,10 @@
       %li{:id => "task#{task.id}"}
         = check_box_tag(:complete, "completed")
         %span.content= task.content
-        = @task.user_id
+        -#= label :user_id, "User"
+        = select :user_id, "User", options_for_select([['Choose One', ''], ['Hunter', 0], ['Andy', 1], ['Michael', 2] ], selected = @task.user_id)
+
+        -#= @task.user_id
         = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
       -#%td= task.created_at
     -#= sortable_element("tasks", :url => "TODOS", :tag=>"tr")

@@ -5,7 +5,8 @@ class TasksController < ApplicationController
     @tasks = Task.all(:order =>"position")
 
     @task = Task.new
-
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @tasks }
@@ -41,10 +42,19 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     respond_to do |format|
+      
       if @task.update_attributes(params[:task])
         #need to update subsequent tasks position
-        Task.where("position >= '#{@task.position}'").each do |task|
-          task.position += 1
+        Task.where("position > '#{@task.position}'").each do |task|
+          task.position += 1 
+        end
+
+        Task.where("position < '#{@task.position}'").each do |task|
+          task.position += -1 
+        end
+
+        Task.where("position = '#{@task.position}'").each do |task|
+          task.position += -1
         end
 
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }

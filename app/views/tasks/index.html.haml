@@ -4,7 +4,7 @@
   #task-creation-form
     = form_for @task, :url => { :action => "create" }, :remote => true do |f|
       = f.text_field :content, :id => "content-field"
-      = select :user_id, "User", options_for_select([['Choose One', ''], ['Hunter', 0], ['Andy', 1], ['Michael', 2] ], selected = @task.user_id)
+      = f.select(:user_id, options_for_select([['Choose One', ''], ['Hunter', 0], ['Andy', 1], ['Michael', 2] ]))
       = f.submit "Save"
 
   %ul#tasks
@@ -12,9 +12,11 @@
       %li{:id => "task#{task.id}"}
         = check_box_tag(:complete, "completed")
         %span.content= task.content
+        = form_for @task do |f|
+          = f.text_field :content, :value=> task.content, :id => "edit-content"
         -#= label :user_id, "User"
-        -#= select :user_id, "User", options_for_select([['Choose One', ''], ['Hunter', 0], ['Andy', 1], ['Michael', 2] ], selected = @task.user_id)
-        = Task::USER_ID[@task.user_id]
+        = select_tag task.user_id, options_for_select([['Hunter', 0], ['Andy', 1], ['Michael', 2]], selected= @task.user_id), :onchange => "this.form.submit();" 
+        %span.user_id= task.user_id
 
         -#= @task.user_id
         = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
